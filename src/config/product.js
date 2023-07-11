@@ -22,6 +22,7 @@ module.exports = {
         path: '/Users/xingwenhao/public',
     },
     Databases: {
+        Enable: false,
         MySQL: {
             dialect: 'mariadb',
             host: 'localhost',
