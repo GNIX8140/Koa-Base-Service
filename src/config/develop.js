@@ -4,7 +4,7 @@ module.exports = {
         https: 443,
     },
     Koa: {
-        Keys: 'Koa-Service',
+        Keys: ['koa-service'],
         KoaBody: {
             formidable: {
                 maxFields: 1000,
@@ -25,7 +25,7 @@ module.exports = {
             '/Users/xingwenhao/public',
         ],
         KoaSession: {
-            key: 'Koa-Service',
+            key: 'koa-service',
             maxAge: 1000 * 60 * 60 * 24 * 7,
             overwrite: true,
             httpOnly: true,

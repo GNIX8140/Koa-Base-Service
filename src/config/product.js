@@ -4,7 +4,7 @@ module.exports = {
         https: 443,
     },
     Koa: {
-        Keys: 'koa-service',
+        Keys: ['koa-service'],
         KoaBody: {
             formidable: {
                 maxFields: 1000,
