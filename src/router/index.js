@@ -1,5 +1,5 @@
 const Router = require('koa-router');
-const router = new Router()
+module.exports = new Router()
     .get('/', ctx => {
         return ctx.success({
             path: ctx.path,
@@ -12,5 +12,3 @@ const router = new Router()
             method: 'POST',
         })
     })
-
-module.exports = router;

@@ -6,6 +6,7 @@ module.exports = async (ctx, next) => {
         ctx.body = {
             status: 1,
             message: '服务请求成功',
+            process_time: null,
             data: data || 'success'
         }
     }
@@ -14,6 +15,7 @@ module.exports = async (ctx, next) => {
         ctx.body = {
             status: 1000,
             message: '服务内部错误',
+            process_time: null,
             detail: detail || '服务内部错误',
         }
     }
@@ -22,6 +24,7 @@ module.exports = async (ctx, next) => {
         ctx.body = {
             status: 1001,
             message: '请求未授权',
+            process_time: null,
             detail: detail || '请求未授权',
         }
     }
@@ -30,6 +33,7 @@ module.exports = async (ctx, next) => {
         ctx.body = {
             status: 1002,
             message: '请求数据无效',
+            process_time: null,
             detail: detail || '请求数据无效',
         }
     }

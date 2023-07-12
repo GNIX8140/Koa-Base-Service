@@ -1,17 +1,8 @@
-const MySQL = require('../config/config').Databases.MySQL;
-const Enable = require('../config/config').Databases.Enable;
-const { Sequelize, ENUM } = require('sequelize');
+if (!require('../config/config').Databases.Enable.MySQL) return;
+const Config = require('../config/config').Databases.MySQL;
+const { Sequelize } = require('sequelize');
 const cls = require('cls-hooked');
 const namespace = cls.createNamespace('transaction');
 Sequelize.useCLS(namespace);
-if (Enable) {
-    const mariadb = new Sequelize(MySQL.database, MySQL.username, MySQL.password, {
-        dialect: MySQL.dialect,
-        host: MySQL.host,
-        port: MySQL.port,
-        timezone: MySQL.timezone,
-        pool: MySQL.pool,
-        logging: MySQL.logging,
-    });
-    module.exports = mariadb;
-}
+const mariadb = new Sequelize(Config.database, Config.username, Config.password, Config.options);
+module.exports = mariadb;

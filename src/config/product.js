@@ -4,40 +4,70 @@ module.exports = {
         https: 443,
     },
     Koa: {
+        Keys: 'koa-service',
         KoaBody: {
-            multipart: true,
             formidable: {
+                maxFields: 1000,
                 maxFileSize: 20 * 1024 * 1024,
+                multipart: true,
             }
         },
         KoaCors: {
-            host: '*',
-        }
+            origin: (ctx) => {
+                return '*';
+            },
+            maxAge: 5,
+            credentials: true,
+            allowMethods: ['GET', 'POST'],
+            allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+        },
+        KoaStatic: [
+            '/Users/xingwenhao/public',
+        ],
+        KoaSession: {
+            key: 'koa-service',
+            maxAge: 1000 * 60 * 60 * 24 * 7,
+            overwrite: true,
+            httpOnly: true,
+            signed: true,
+            rolling: true,
+            renew: true,
+            sameSite: 'none',
+        },
     },
     SSL: {
         key: '/Users/xingwenhao/Code/SSL/cert.key',
         cert: '/Users/xingwenhao/Code/SSL/cert.pem',
     },
-    Public: {
-        path: '/Users/xingwenhao/public',
+    Authorization: {
+        allowURL: [
+            '/',
+        ],
     },
     Databases: {
-        Enable: false,
+        Enable: {
+            MySQL: false,
+            Redis: false,
+            MongoDB: false,
+            Memcached: false,
+        },
         MySQL: {
-            dialect: 'mariadb',
-            host: 'localhost',
-            port: 3306,
             database: 'localserver',
             username: 'root',
             password: 'root',
-            timezone: '+08:00',
-            pool: {
-                max: 5,
-                min: 0,
-                qcquire: 30000,
-                idle: 10000,
-            },
-            logging: false,
+            options: {
+                dialect: 'mariadb',
+                host: 'localhost',
+                port: 3306,
+                timezone: '+08:00',
+                pool: {
+                    max: 5,
+                    min: 0,
+                    qcquire: 30000,
+                    idle: 10000,
+                },
+                logging: false,
+            }
         },
         Redis: {
             port: 6379,
@@ -48,15 +78,23 @@ module.exports = {
             host: 'localhost',
             port: 27017,
             database: 'localserver',
-            authSource: 'admin',
-            username: 'root',
-            password: 'root',
+            options: {
+                authSource: 'admin',
+                user: 'root',
+                pass: 'root',
+            }
         },
         Memcached: {
             host: 'localhost',
             port: 11211,
-            debug: false,
-            retries: 5,
+            options: {
+                debug: false,
+                failuresTimeout: 1000,
+                retry: 1000,
+                retries: 2,
+                minTimeout: 1000,
+                maxTimeout: 1000,
+            }
         }
     },
 }

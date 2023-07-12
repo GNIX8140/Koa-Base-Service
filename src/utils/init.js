@@ -45,19 +45,16 @@ function MemcachedConnectTest() {
     });
 }
 // 测试启动服务
-function InitServe() {
+module.exports = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (Enable) {
-                if (!await MariaDBConnentTest()) throw 'MariaDB 连接错误';
-                if (!await RedisConnectTest()) throw 'Redis 连接错误';
-                if (!await MongoDBConnectTest()) throw 'MongoDB 连接错误';
-                if (!await MemcachedConnectTest()) throw 'Memcached 连接错误';
-            }
+            if (Enable.MySQL && !await MariaDBConnentTest()) throw 'MariaDB 连接错误';
+            if (Enable.Redis && !await RedisConnectTest()) throw 'Redis 连接错误';
+            if (Enable.MongoDB && !await MongoDBConnectTest()) throw 'MongoDB 连接错误';
+            if (Enable.Memcached && !await MemcachedConnectTest()) throw 'Memcached 连接错误';
             return resolve(true);
         } catch (err) {
             return reject(err);
         }
     });
 }
-module.exports = InitServe;
