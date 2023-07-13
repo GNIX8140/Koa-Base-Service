@@ -2,12 +2,12 @@
 // 服务配置
 const Config = require('./src/config/config');
 // 基础组件
+require("pretty-error").start();
 const http = require('http');
 const https = require("https");
-require("pretty-error").start();
 const ssl = require('./src/utils/ssl')();
 const server_ip = require('./src/utils/ip')();
-const InitServe = require('./src/utils/init');
+const InitService = require('./src/utils/init');
 // Koa 中间件
 const Koa = require("koa");
 const app = new Koa();
@@ -37,7 +37,7 @@ app
     .use(IndexRouter.routes()) // Koa路由
     .use(IndexRouter.allowedMethods()) // Koa 路由处理
 // 启动服务
-InitServe()
+InitService()
     .then(() => { // 启动 HTTP 服务
         return new Promise((resolve, reject) => {
             // 启动服务
