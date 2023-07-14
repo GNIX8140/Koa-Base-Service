@@ -15,6 +15,13 @@
 
 ---
 
+### 服务启动
+
+> npm run dev -> develop环境 由nodemon提供热重载 \
+> npm run serve -> product环境 正式服务
+
+---
+
 ### 数据库
 
 > Redis 数据库 \
