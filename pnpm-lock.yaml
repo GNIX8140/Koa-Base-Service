@@ -42,8 +42,8 @@ dependencies:
     specifier: ^2.29.4
     version: 2.29.4
   mongoose:
-    specifier: ^7.3.3
-    version: 7.3.3
+    specifier: ^7.3.4
+    version: 7.3.4
   mysql2:
     specifier: ^3.5.1
     version: 3.5.1
@@ -126,7 +126,7 @@ packages:
   /@types/formidable@2.0.6:
     resolution: {integrity: sha512-L4HcrA05IgQyNYJj6kItuIkXrInJvsXTPC5B1i64FggWKKqSL+4hgt7asiSNva75AoLQjq29oPxFfU4GAQ6Z2w==}
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 20.4.2
     dev: false
 
   /@types/geojson@7946.0.10:
@@ -141,8 +141,8 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.4.1:
-    resolution: {integrity: sha512-JIzsAvJeA/5iY6Y/OxZbv1lUcc8dNSE77lb2gnBH+/PJ3lFR1Ccvgwl5JWnHAkNHcRsT0TbpVOsiMKZ1F/yyJg==}
+  /@types/node@20.4.2:
+    resolution: {integrity: sha512-Dd0BYtWgnWJKwO1jkmTrzofjK2QXXcai0dmtzvIBhcA+RsG5h8R3xlyta0kGOZRNfL9GuRtb1knmPEhQrePCEw==}
     dev: false
 
   /@types/validator@13.7.17:
@@ -156,7 +156,7 @@ packages:
   /@types/whatwg-url@8.2.2:
     resolution: {integrity: sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA==}
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 20.4.2
       '@types/webidl-conversions': 7.0.0
     dev: false
 
@@ -968,8 +968,8 @@ packages:
       saslprep: 1.0.3
     dev: false
 
-  /mongoose@7.3.3:
-    resolution: {integrity: sha512-g4NrRGIUEUYLeScaSChQR8i4Dlk9lR0UJzkK3r6TPJyqJ6ZWdRVP3oXfOG9Yn+hNeKcCJKfVEHo+jsU1rh3YTA==}
+  /mongoose@7.3.4:
+    resolution: {integrity: sha512-luvv4PKFiFYaHNn5wGIRrMML3Vvoa8lkdhcLE1S/6gY9s9CUOdEu9olbDrkhvnwRQ20j1SrQFO5JEApW0xwL3w==}
     engines: {node: '>=14.20.1'}
     dependencies:
       bson: 5.4.0
@@ -1493,7 +1493,7 @@ packages:
   /wkx@0.5.0:
     resolution: {integrity: sha512-Xng/d4Ichh8uN4l0FToV/258EjMGU9MGcA0HV2d9B/ZpZB3lqQm7nkOdZdm5GhKtLLhAE7PiVQwN4eN+2YJJUg==}
     dependencies:
-      '@types/node': 20.4.1
+      '@types/node': 20.4.2
     dev: false
 
   /wrappy@1.0.2:
