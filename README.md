@@ -22,10 +22,17 @@
 
 ---
 
+### Docker
+
+> 基础镜像: NODE:16-alpine3.16 \
+> Docker部署: docker-compose up -d
+
+---
+
 ### 数据库
 
+> MySQL || MariaDB 数据库 \
 > Redis 数据库 \
-> MariaDB 数据库 \
 > MongoDB 数据库 \
 > Memcahced 数据库
 
@@ -36,7 +43,8 @@
 > Authorization -> API拦截器 \
 > ResponseModel -> 响应消息体 \
 > ResponseTime -> 接口响应Log \
-> ResponseError -> 响应错误处理
+> ResponseError -> 响应错误处理 \
+> Passport -> Passport.js 验证策略
 
 ---
 

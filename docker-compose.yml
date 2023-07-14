@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  koa_base_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "koa_base_service"
+    container_name: "koa_base_service"
+    user: root
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    deploy:
+      replicas: 1
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: "no"

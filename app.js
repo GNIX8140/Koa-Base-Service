@@ -5,7 +5,6 @@ const Config = require('./src/config/config');
 require("pretty-error").start();
 const http = require('http');
 const https = require("https");
-const ssl = require('./src/utils/ssl')();
 const server_ip = require('./src/utils/ip')();
 const InitService = require('./src/utils/init');
 // Koa 中间件
@@ -43,20 +42,23 @@ InitService()
             // 启动服务
             http.createServer(app.callback()).listen(Config.Port.http, err => {
                 if (err) return reject(err);
+                console.log(`HTTP Service run at http://${server_ip}`);
                 return resolve();
             });
         });
     })
     .then(() => { // 启动 HTTPS 服务
-        return new Promise((resolve, reject) => {
-            https.createServer(ssl, app.callback()).listen(Config.Port.https, err => {
-                if (err) return reject(err)
-                return resolve();
+        if (Config.SSL.enable) {
+            return new Promise((resolve, reject) => {
+                https.createServer(require('./src/utils/ssl')(), app.callback()).listen(Config.Port.https, err => {
+                    if (err) return reject(err)
+                    console.log(`HTTPS Service run at https://${server_ip}`);
+                    return resolve();
+                });
             });
-        });
+        }
     })
     .then(() => {
-        console.log(`HTTP Service run at http://${server_ip}/\nHTTPS Service run at https://${server_ip}/`);
         console.log('Service Start Success');
     })
     .catch(err => { // 错误处理

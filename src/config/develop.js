@@ -36,6 +36,7 @@ module.exports = {
         },
     },
     SSL: {
+        enable: false,
         key: '/Users/xingwenhao/Code/SSL/cert.key',
         cert: '/Users/xingwenhao/Code/SSL/cert.pem',
     },
