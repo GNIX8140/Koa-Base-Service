@@ -42,6 +42,7 @@ module.exports = {
     Authorization: {
         allowURL: [
             '/',
+            '/test',
         ],
     },
     Databases: {
