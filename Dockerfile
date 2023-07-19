@@ -4,7 +4,9 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE [80, 443]
+EXPOSE 80
+
+EXPOSE 443
 
 RUN npm install
 
