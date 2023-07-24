@@ -1,4 +1,5 @@
 const Enable = require('../config/config').Databases.Enable;
+const Sync = require('../config/config').Databases.Sync;
 const WaitTime = 1000 * 0.1;
 // MariaDB连接测试
 function MariaDBConnentTest() {
@@ -44,6 +45,28 @@ function MemcachedConnectTest() {
         }, WaitTime);
     });
 }
+// Sequelize 模型同步
+async function SequelizeModelSyncAlert() {
+    try {
+        const sequelize = require('../database/mariadb');
+        // TODO Model.sync({ alert: true });
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
+// Sequelize 模型重建
+async function SequelizeModelSyncForce() {
+    try {
+        const sequelize = require('../database/mariadb');
+        await sequelize.query('SET foreign_key_checks = 0;');
+        // TODO Model.sync({ force: true });
+        await sequelize.query('SET foreign_key_checks = 1;');
+        return true;
+    } catch (err) {
+        return false;
+    }
+}
 // 测试启动服务
 module.exports = () => {
     return new Promise(async (resolve, reject) => {
@@ -52,6 +75,8 @@ module.exports = () => {
             if (Enable.Redis && !await RedisConnectTest()) throw 'Redis 连接错误';
             if (Enable.MongoDB && !await MongoDBConnectTest()) throw 'MongoDB 连接错误';
             if (Enable.Memcached && !await MemcachedConnectTest()) throw 'Memcached 连接错误';
+            if (Sync.Sequelize.alert && !await SequelizeModelSyncAlert()) throw 'Sequelize 模型同步错误';
+            if (Sync.Sequelize.force && !await SequelizeModelSyncForce()) throw 'Sequelize 模型重建错误';
             return resolve(true);
         } catch (err) {
             return reject(err);

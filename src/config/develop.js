@@ -53,6 +53,12 @@ module.exports = {
             MongoDB: false,
             Memcached: false,
         },
+        Sync: {
+            Sequelize: {
+                alert: false,
+                force: false,
+            },
+        },
         MySQL: {
             database: 'localserver',
             username: 'root',
