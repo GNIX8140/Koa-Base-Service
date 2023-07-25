@@ -7,56 +7,37 @@ const http = require('http');
 const https = require("https");
 const server_ip = require('./src/utils/ip')();
 const InitService = require('./src/utils/init');
-// Koa 中间件
-const Koa = require("koa");
-const app = new Koa();
-const KoaBody = require("koa-body");
-const KoaCors = require("koa2-cors");
-const KoaStatic = require('koa-static')
-const KoaSession = require('koa-session');
-const IndexRouter = require("./src/router/index");
-const KoaPassport = require('./src/middleware/passport');
-const ResponseTime = require("./src/middleware/responseTime");
-const responseError = require("./src/middleware/responseError");
-const ResponseModel = require("./src/middleware/responseModel");
-const Authorization = require("./src/middleware/authorization");
-// 初始化 Koa
-app.keys = Config.Koa.Keys;
-app
-    .use(ResponseTime) // 响应时间
-    .use(ResponseModel) // 响应消息体模型
-    .use(responseError) // 响应错误处理
-    .use(KoaBody(Config.Koa.KoaBody)) // Koa请求体
-    .use(KoaCors(Config.Koa.KoaCors)) // Koa跨域
-    .use(KoaSession(Config.Koa.KoaSession, app)) // Koa Session
-    .use(KoaStatic(Config.Koa.KoaStatic[0])) // Koa静态资源
-    .use(KoaPassport.initialize()) // Passport 初始化
-    .use(KoaPassport.session()) // Passport Session配置
-    .use(Authorization) // 请求拦截
-    .use(IndexRouter.routes()) // Koa路由
-    .use(IndexRouter.allowedMethods()) // Koa 路由处理
+const Koa = require('./src/basic/koa');
+const WS = require('ws');
+const WSService = require('./src/basic/ws');
 // 启动服务
 InitService()
     .then(() => { // 启动 HTTP 服务
         return new Promise((resolve, reject) => {
-            // 启动服务
-            http.createServer(app.callback()).listen(Config.Port.http, err => {
+            const HttpServer = http.createServer(Koa.callback());
+            HttpServer.listen(Config.Port.http, err => {
                 if (err) return reject(err);
                 console.log(`HTTP Service run at http://${server_ip}`);
-                return resolve();
+                return resolve(HttpServer);
             });
         });
     })
+    .then(HttpServer => {
+        if (!Config.WebSocket.enable) return;
+        const WSApp = new WS.Server({ server: HttpServer });
+        WSService(WSApp);
+        return;
+    })
     .then(() => { // 启动 HTTPS 服务
-        if (Config.SSL.enable) {
-            return new Promise((resolve, reject) => {
-                https.createServer(require('./src/utils/ssl')(), app.callback()).listen(Config.Port.https, err => {
-                    if (err) return reject(err)
-                    console.log(`HTTPS Service run at https://${server_ip}`);
-                    return resolve();
-                });
+        if (!Config.SSL.enable) return;
+        return new Promise((resolve, reject) => {
+            const HttpsServer = https.createServer(require('./src/utils/ssl')(), Koa.callback());
+            HttpsServer.listen(Config.Port.https, err => {
+                if (err) return reject(err)
+                console.log(`HTTPS Service run at https://${server_ip}`);
+                return resolve();
             });
-        }
+        });
     })
     .then(() => {
         console.log('Service Start Success');

@@ -35,6 +35,9 @@ module.exports = {
             sameSite: 'none',
         },
     },
+    WebSocket: {
+        enable: true,
+    },
     SSL: {
         enable: false,
         key: '/Users/xingwenhao/Code/SSL/cert.key',
