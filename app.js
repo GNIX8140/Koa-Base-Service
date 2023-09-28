@@ -17,7 +17,7 @@ InitService()
             const HttpServer = http.createServer(Koa.callback());
             HttpServer.listen(Config.Port.http, err => {
                 if (err) return reject(err);
-                console.log(`HTTP Service run at http://${server_ip}${Config.Port.http === 80 ? null : `:${Config.Port.http}`}`);
+                console.log(`HTTP Service run at http://${server_ip}${Config.Port.http === 80 ? '' : `:${Config.Port.http}`}`);
                 return resolve(HttpServer);
             });
         });
@@ -34,7 +34,7 @@ InitService()
             const HttpsServer = https.createServer(require('./src/utils/ssl')(), Koa.callback());
             HttpsServer.listen(Config.Port.https, err => {
                 if (err) return reject(err)
-                console.log(`HTTPS Service run at https://${server_ip}${Config.Port.http === 80 ? null : `:${Config.Port.https}`}`);
+                console.log(`HTTPS Service run at https://${server_ip}${Config.Port.http === 80 ? '' : `:${Config.Port.https}`}`);
                 return resolve();
             });
         });

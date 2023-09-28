@@ -4,50 +4,45 @@ module.exports = {
         https: 443,
     },
     Koa: {
-        Keys: ['koa-service'],
+        Keys: ["koa-service"],
         KoaBody: {
             formidable: {
                 maxFields: 1000,
                 maxFileSize: 20 * 1024 * 1024,
                 multipart: true,
-            }
+            },
         },
         KoaCors: {
             origin: (ctx) => {
-                return '*';
+                return "*";
             },
             maxAge: 5,
             credentials: true,
-            allowMethods: ['GET', 'POST'],
-            allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+            allowMethods: ["GET", "POST"],
+            allowHeaders: ["Content-Type", "Authorization", "Accept"],
         },
-        KoaStatic: [
-            '/Users/xingwenhao/public',
-        ],
+        KoaStatic: ["/Users/xingwenhao/public"],
         KoaSession: {
-            key: 'koa-service',
+            key: "koa-service",
             maxAge: 1000 * 60 * 60 * 24 * 7,
             overwrite: true,
             httpOnly: true,
             signed: true,
             rolling: true,
             renew: true,
-            sameSite: 'none',
+            sameSite: "none",
         },
     },
     WebSocket: {
         enable: true,
     },
     SSL: {
-        enable: false,
-        key: '/Users/xingwenhao/Code/SSL/cert.key',
-        cert: '/Users/xingwenhao/Code/SSL/cert.pem',
+        enable: true,
+        key: "/Users/xingwenhao/Public/SSL/cert.key",
+        cert: "/Users/xingwenhao/Public/SSL/cert.pem",
     },
     Authorization: {
-        allowURL: [
-            '/',
-            '/test',
-        ],
+        allowURL: ["/", "/test", "/test/file"],
     },
     Databases: {
         Enable: {
@@ -63,14 +58,14 @@ module.exports = {
             },
         },
         MySQL: {
-            database: 'localserver',
-            username: 'root',
-            password: 'root',
+            database: "localserver",
+            username: "root",
+            password: "root",
             options: {
-                dialect: 'mariadb',
-                host: 'localhost',
+                dialect: "mariadb",
+                host: "localhost",
                 port: 3306,
-                timezone: '+08:00',
+                timezone: "+08:00",
                 pool: {
                     max: 5,
                     min: 0,
@@ -78,25 +73,25 @@ module.exports = {
                     idle: 10000,
                 },
                 logging: false,
-            }
+            },
         },
         Redis: {
             port: 6379,
-            host: 'localhost',
+            host: "localhost",
             database: 1,
         },
         MongoDB: {
-            host: 'localhost',
+            host: "localhost",
             port: 27017,
-            database: 'localserver',
+            database: "localserver",
             options: {
-                authSource: 'admin',
-                user: 'root',
-                pass: 'root',
-            }
+                authSource: "admin",
+                user: "root",
+                pass: "root",
+            },
         },
         Memcached: {
-            host: 'localhost',
+            host: "localhost",
             port: 11211,
             options: {
                 debug: false,
@@ -105,7 +100,7 @@ module.exports = {
                 retries: 2,
                 minTimeout: 1000,
                 maxTimeout: 1000,
-            }
-        }
+            },
+        },
     },
-}
+};
